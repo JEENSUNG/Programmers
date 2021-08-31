@@ -1,0 +1,21 @@
+import java.util.*;
+public class Solution {
+    public int[] solution(int[] progresses, int[] speeds) {
+
+        Queue<Integer> pr = new LinkedList<>();
+        for(int val = 0;val< progresses.length; val++)
+            pr.add((int)(Math.ceil((100.0 - progresses[val]) / speeds[val])));
+        
+        List<Integer> answer = new ArrayList<>();
+        while(!pr.isEmpty()){
+            int day = pr.poll();
+            int cnt = 1;
+            while(!pr.isEmpty() && day >= pr.peek()) {
+                cnt++;
+                pr.poll();
+            }
+            answer.add(cnt);
+        }
+        return answer.stream().mapToInt(Integer::intValue).toArray();
+    }
+}
