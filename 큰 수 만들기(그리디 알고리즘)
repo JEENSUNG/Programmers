@@ -1,0 +1,27 @@
+import java.util.*;
+class Solution {
+    public String solution(String number, int k) {
+        
+        if(number.charAt(0) == '0') return "0";
+        
+        int index = 0;
+        
+        //stringbuilder 를 쓸 때는 answer = ""; 없어도 됨
+        StringBuilder answer = new StringBuilder(); 
+        
+        for(int i = 0; i < number.length() - k; i++) {
+            char max = '0';
+            for(int j = index; j <= k+i; j++) { // j값이 돌고 돌아 현재 위치의 -1까지 비교해야 하므로 k+i까지 생각해야함
+                if(max < number.charAt(j)){
+                    max = number.charAt(j);
+                    index = j+1; // 만약 더 큰 max 값이 있다면 j값을 현재보다 건너 뛰어야 하므로 j+1
+                }
+                if(max == '9')
+                    break;
+            }
+            answer.append(max);
+            
+        }
+        return answer.toString();
+    }
+}
