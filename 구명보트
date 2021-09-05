@@ -1,0 +1,27 @@
+import java.util.*;
+class Solution {
+    public int solution(int[] people, int limit) {
+    //사람 수가 1명이면 보트는 1개이므로 return 1해주고
+        if(people.length == 1 )
+            return 1;
+         int answer = 0;
+         int i = 0;
+         int j = people.length - 1;
+        //people 을 오름차순으로 정렬한다.
+         Arrays.sort(people);
+        //최솟값과 최댓값을 더해서 limit 보다 크면 answer를 더해주었다.
+         for (; j > i; j--) {
+              if (people[i] + people[j] <= limit) {
+                 answer++;
+                 i++;
+             } else {
+              answer++;
+              }
+
+         }
+         if (i == j) {
+           answer++;
+        }
+          return answer;
+    }
+}
