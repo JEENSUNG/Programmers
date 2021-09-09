@@ -37,6 +37,6 @@ class Solution {
         	Arrays.sort(arr);
         	answer[i] = arr[count];
     	}
-		return answer;
+		return answer; 
 	}
 }
