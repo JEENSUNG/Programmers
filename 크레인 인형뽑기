@@ -1,0 +1,22 @@
+class Solution {
+    public int solution(int[][] board, int[] moves) {
+        int answer = 0;
+        int[] count = new int[moves.length];
+        for(int i = 0; i < moves.length; i++) {
+            int t = moves[i]-1;
+            for(int j = 0; j < board.length; j++) {
+                if(board[j][t] == moves[i]){
+                    count[i] = moves[i];
+                    break;
+                }
+                
+            }
+        }
+        for(int i = 0; i < moves.length; i++) {
+            if(count[i] == count[i+1]){
+                answer++;
+            }
+        }
+        return answer;
+    }
+}
