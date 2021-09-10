@@ -1,20 +1,24 @@
 class Solution {
     public int solution(int[][] board, int[] moves) {
         int answer = 0;
+        int a = 0;
         int[] count = new int[moves.length];
         for(int i = 0; i < moves.length; i++) {
             int t = moves[i]-1;
             for(int j = 0; j < board.length; j++) {
-                if(board[j][t] == moves[i]){
-                    count[i] = moves[i];
+                if(board[j][t] != 0){
+                    count[a] = board[j][t];
+                    if(a >= 1 &&  count[a] == count[a - 1]){
+                        count[a] = 0;
+                        count[a - 1] = 0;
+                        a -= 2;
+                        answer += 2;
+                    }
+                    a++;
+                    board[j][t] = 0;
                     break;
                 }
                 
-            }
-        }
-        for(int i = 0; i < moves.length; i++) {
-            if(count[i] == count[i+1]){
-                answer++;
             }
         }
         return answer;
