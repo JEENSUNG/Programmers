@@ -1,0 +1,18 @@
+class Solution {
+    public long solution(long n) {
+        long answer = 0;
+        long t = 1;
+        while(t * t != n){
+            if(t * t == n)
+                break;
+            else
+                t++;
+            if(t * t > n)
+                break;
+        }
+        if(t * t > n)
+            return -1;
+        answer = (t+1) * (t+1);
+        return answer;
+    }
+}
