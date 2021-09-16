@@ -1,0 +1,13 @@
+class Solution {
+    public int solution(int n) {
+        int answer = 0;
+        int t = 1;
+        
+        while(t<=n){
+            if(n % t == 0)
+                answer+=t;
+            t++;
+        }
+        return answer;
+    }
+}
