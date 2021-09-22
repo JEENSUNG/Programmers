@@ -1,0 +1,22 @@
+class Solution {
+    boolean solution(String s) {
+        boolean answer = true;
+        
+        String[] sb = s.split("");
+        int f = 0;
+        int g = 0;
+        for(int i = 0; i < sb.length; i++) {
+           if(sb[i].equals("p") || sb[i].equals("P")) {
+               f++;
+           }
+            else if(sb[i].equals("y") || sb[i].equals("Y")){
+                g++;
+            }
+        }
+        if(f == g)
+            answer = true;
+        else
+            answer = false;
+        return answer;
+    }
+}
