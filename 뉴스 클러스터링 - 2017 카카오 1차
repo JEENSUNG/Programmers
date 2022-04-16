@@ -1,0 +1,45 @@
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
+class Solution{
+    public int solution(String str1, String str2){
+        Map<String, Integer> str1Map = new HashMap<>();
+        Map<String, Integer> str2Map = new HashMap<>();
+
+        str1 = str1.toLowerCase();
+        str2 = str2.toLowerCase();
+
+        for(int i = 0; i < str1.length() - 1; i++){
+            String answer = "";
+            answer += str1.charAt(i);
+            answer += str1.charAt(i + 1);
+            if(answer.matches("^[a-z]*$")){
+                str1Map.put(answer, str1Map.getOrDefault(answer, 0) + 1);
+            }
+        }
+        for(int i = 0; i < str2.length() - 1; i++){
+            String answer = "";
+            answer += str2.charAt(i);
+            answer += str2.charAt(i + 1);
+            if(answer.matches("^[a-z]*$")){
+                str2Map.put(answer, str2Map.getOrDefault(answer , 0) + 1);
+            }
+        }
+        int t = 0;
+        Map<String, Integer> subMap = new HashMap<>(str2Map);
+        for(String s : str1Map.keySet()){
+            if (str2Map.containsKey(s)) {
+                t += Math.min(str1Map.get(s), str2Map.get(s));
+                subMap.put(s, Math.max(str1Map.get(s), str2Map.get(s)));
+            }else
+                subMap.put(s, str1Map.get(s));
+        }
+        int sum = 0;
+        for(String s : subMap.keySet())
+            sum += subMap.get(s);
+        if(sum == 0)
+            return 65536;
+        return t * 65536 / sum;
+    }
+}
