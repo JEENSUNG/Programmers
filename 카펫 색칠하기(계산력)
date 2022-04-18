@@ -1,0 +1,15 @@
+class Solution {
+    public int[] solution(int brown, int yellow) {
+        int size = brown + yellow;
+        //i는 가로 , j는 세로
+        for (int i = 3; i <= size; i++) {
+            for (int j = 3; j <= size; j++) {
+                if (i >= j) {
+                    if (i * j == size && i * 2 + (j - 2) * 2 == brown && size - brown == yellow)
+                        return new int[]{i, j};
+                }
+            }
+        }
+        return new int[]{0, 0};
+    }
+}
