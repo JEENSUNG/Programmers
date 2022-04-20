@@ -1,0 +1,33 @@
+class Solution {
+    static boolean[] visit;
+    static int answer = Integer.MAX_VALUE;
+    public int solution(String begin, String target, String[] words) {
+        visit = new boolean[words.length];
+        dfs(begin, target, words, 0);
+        if(answer == Integer.MAX_VALUE)
+            return 0;
+        return answer;
+    }
+    static void dfs(String x, String y, String[] words, int count){
+        if(x.equals(y)){
+            answer = Math.min(answer, count);
+            return;
+        }
+        for(int i = 0; i < words.length; i++){
+            if(!visit[i] && match(x, words[i]) == 1){
+                visit[i] = true;
+                dfs(words[i], y, words, count + 1);
+                visit[i] = false;
+            }
+        }
+    }
+    static int match(String x, String y){
+        int cnt = 0;
+        for(int i = 0; i < x.length(); i++){
+            if(x.charAt(i) != y.charAt(i)){
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+}
