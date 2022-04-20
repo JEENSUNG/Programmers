@@ -1,0 +1,32 @@
+class Solution {
+    static boolean[] visit;
+    public int solution(int n, int[][] computers) {
+        int answer = 0;
+        visit = new boolean[n];
+        for(int i = 0; i < computers.length; i++){
+            for(int j = 0; j < n; j++){
+                if(computers[i][j] == 1 && i != j && !visit[i]){
+                    visit[i] = true;
+                    bfs(j, computers);
+                    answer++;
+                }
+            }
+        }
+        for(int i = 0; i < computers.length; i++){
+            for(int j = 0; j < n; j++){
+                if(i == j && !visit[i])
+                    answer++;
+            }
+        }
+        return answer;
+    }
+    static void bfs(int y, int[][] computers){
+        visit[y] = true;
+        for(int i = 0; i < computers.length; i++){
+            if(!visit[i] && computers[y][i] == 1){
+                visit[i] = true;
+                bfs(i, computers);
+            }
+        }
+    }
+}
