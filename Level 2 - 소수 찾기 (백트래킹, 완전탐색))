@@ -1,0 +1,42 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+
+class Solution {
+    static HashSet<Integer> hash = new HashSet<>();
+    static int answer = 0;
+    static boolean[] visit;
+    public int solution(String numbers) {
+        visit = new boolean[numbers.length()];
+        dfs(numbers, 0, "");
+        return hash.size();
+    }
+    static void dfs(String numbers, int count, String str){
+        if(count == numbers.length()){
+            return;
+        }
+        for(int i = 0; i < numbers.length(); i++){
+            if (!visit[i]) {
+                visit[i] = true;
+                String number = str + numbers.charAt(i);
+                if(pk(Integer.parseInt(number))){
+                    hash.add(Integer.parseInt(number));
+                }
+                dfs(numbers, count + 1, number);
+                visit[i] = false;
+            }
+        }
+    }
+    static boolean pk(int x){
+        int a = 2;
+        int b = (int) Math.floor(Math.sqrt(x));
+        for(int i = a; i <= b; i++){
+            if(i != x && x % i == 0){
+                return false;
+            }
+        }
+        if(x <= 1)
+            return false;
+        return true;
+    }
+}
