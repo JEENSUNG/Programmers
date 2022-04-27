@@ -6,9 +6,14 @@ class Solution {
     static HashMap<String, Integer> hash = new HashMap<>();
     public boolean solution(String[] phone_book) {
         boolean answer = true;
-        Arrays.sort(phone_book, (o1, o2) -> {
+        //Arrays.sort(phone_book, (o1, o2) -> {
             return o1.length() - o2.length();
         });
+        //startsWith를 활용하여 풀 수도 있슴.
+    for (int i = 0; i < phoneBook.length - 1; i++) 
+    if (phoneBook[i + 1].startsWith(phoneBook[i]))
+     return false;
+
         for(int i = 0; i < phone_book.length; i++){
             if(!hash.containsKey(phone_book[i])){
                 hash.put(phone_book[i], i);
