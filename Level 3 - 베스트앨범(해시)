@@ -1,0 +1,40 @@
+import java.util.*;
+
+class Solution {
+    public int[] solution(String[] genres, int[] plays){
+        HashMap<String, Integer> hashMap = new HashMap<>();
+        for(int i = 0; i < genres.length; i++){
+            hashMap.put(genres[i], hashMap.getOrDefault(genres[i], 0) + plays[i]);
+        }
+        ArrayList<String> list = new ArrayList<>(hashMap.keySet());
+        list.sort((o1, o2) -> (hashMap.get(o2).compareTo(hashMap.get(o1))));
+
+        ArrayList<Integer> answer = new ArrayList<>();
+        for (String str : list) {
+            int max = 0;
+            int first = -1;
+            for (int j = 0; j < genres.length; j++) {
+                if (str.equals(genres[j]) && max < plays[j]) {
+                    max = plays[j];
+                    first = j;
+                }
+            }
+            max = 0;
+            int second = -1;
+            for (int j = 0; j < genres.length; j++) {
+                if (str.equals(genres[j]) && max < plays[j] && j != first) {
+                    max = plays[j];
+                    second = j;
+                }
+            }
+            answer.add(first);
+            if (second >= 0) ys
+            answer.add(second);
+        }
+        int[] result = new int[answer.size()];
+        for (int i = 0; i < answer.size(); i++) {
+            result[i] = answer.get(i);
+        }
+        return result;
+    }
+}
