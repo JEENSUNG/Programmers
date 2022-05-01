@@ -1,0 +1,65 @@
+package com.core.hello;
+
+import java.util.*;
+class Main{
+    static class Point{
+        int x;
+        int y;
+        Point(int x, int y){
+            this.x = x;
+            this.y = y;
+        }
+    }
+    static int[][] dir = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
+    static int[][] arr;
+    static int[][] ans;
+    static int n;
+    static boolean[][] visit;
+    static Queue<Point> queue = new LinkedList<>();
+    static int answer = Integer.MAX_VALUE;
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int t = scan.nextInt();
+        for(int p = 1; p <= t; p++){
+            answer = Integer.MAX_VALUE;
+            n = scan.nextInt();
+            arr = new int[n][n];
+            ans = new int[n][n];
+            visit = new boolean[n][n];
+            for(int i = 0; i < n; i++){
+                String str = scan.next();
+                for(int j = 0; j < n; j++) {
+                    arr[i][j] = str.charAt(j) - '0' ;
+                }
+            }
+            ans[0][0] = 0;
+            visit[0][0] = true;
+            bfs();
+            System.out.println("#" + p + " " + answer);
+        }
+    }
+    static void bfs(){
+        queue = new LinkedList<>();
+        queue.offer(new Point(0,0));
+        visit[0][0] = true;
+        while (!queue.isEmpty()){
+            Point now = queue.poll();
+            if(now.x == n - 1 && now.y == n - 1) {
+                answer = Math.min(answer, ans[n - 1][n - 1]);
+            }
+            if(answer <= ans[now.x][now.y])
+                continue;
+            for(int i = 0; i < 4; i++){
+                int nx = now.x + dir[i][0];
+                int ny = now.y + dir[i][1];
+                if(nx < 0 || ny < 0 || nx >= n || ny >= n)
+                    continue;
+                if(!visit[nx][ny] || ans[nx][ny] > ans[now.x][now.y] + arr[nx][ny]) {
+                    visit[nx][ny] = true;
+                    ans[nx][ny] = ans[now.x][now.y] + arr[nx][ny];
+                    queue.offer(new Point(nx, ny));
+                }
+            }
+        }
+    }
+}
