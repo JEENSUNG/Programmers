@@ -1,0 +1,62 @@
+package com.core.hello;
+
+import java.awt.*;
+import java.util.*;
+class Main{
+    static int[][] arr;
+    static int answer, num;
+    static boolean[][] visit;
+    static int[][] dir = {{0, -1}, {0, 1}, {-1, 0}};
+    static Queue<Point> queue = new LinkedList<>();
+    public static void main(String[] args){
+        Scanner scan = new Scanner(System.in);
+        for(int test_case = 1; test_case <= 10; test_case++){
+            int b = scan.nextInt();
+            arr = new int[100][100];
+            visit = new boolean[100][100];
+            for(int i = 0; i < 100; i++){
+                for(int j = 0; j < 100; j++){
+                    arr[i][j] = scan.nextInt();
+                    if(arr[i][j] == 2)
+                        num = j;
+                }
+            }
+            answer = bfs(num);
+            System.out.println("#" + b + " " + answer);
+        }
+    }
+    static int bfs(int y){
+        queue = new LinkedList<>();
+        queue.offer(new Point(99, y));
+        visit[99][y] = true;
+        while (!queue.isEmpty()) {
+            Point now = queue.poll();
+            if(now.x == 0) {
+                return now.y;
+            }
+            int d = move(now.x, now.y);
+            int nx = now.x + dir[d][0];
+            int ny = now.y + dir[d][1];
+            if(ny < 0 || ny >= 100)
+                continue;
+            if(visit[nx][ny])
+                continue;
+            if(arr[nx][ny] == 0)
+                continue;
+            visit[nx][ny] = true;
+            queue.offer(new Point(nx, ny));
+        }
+        return -1;
+    }
+    static int move(int x, int y){
+        if(y - 1 >= 0){
+            if(arr[x][y - 1] == 1 && !visit[x][y - 1])
+                return 0;
+        }
+        if(y + 1 < 100){
+            if(arr[x][y + 1] == 1 && !visit[x][y + 1])
+                return 1;
+        }
+        return 2;
+    }
+}
