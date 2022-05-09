@@ -1,0 +1,75 @@
+package com.core.hello;
+
+import java.util.*;
+import java.util.List;
+
+class Point{
+    int x;
+    int y;
+    int sum;
+    Point(int x, int y, int sum){
+        this.x = x;
+        this.y = y;
+        this.sum = sum;
+    }
+}
+class Main{
+    static int n;
+    static int[][] arr;
+    static boolean[][] visit;
+    static Queue<Point> queue = new LinkedList<>();
+    static int[][] dir = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
+    static int count;
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int test = scan.nextInt();
+        for(int t = 1; t <= test; t++) {
+            n = scan.nextInt();
+            arr = new int[n][n];
+            visit = new boolean[n][n];
+            count = 0;
+            for(int i = 0; i < n; i++)
+                for(int j = 0; j < n; j++)
+                    arr[i][j] = scan.nextInt();
+            //입력 끝
+            ArrayList<Integer> list = new ArrayList<>();
+            for(int i = 0; i < n; i++)
+                for(int j = 0; j < n; j++) {
+                    int p = bfs(i, j);
+                    if(p > count){
+                        count = p;
+                        list = new ArrayList<>();
+                        list.add(arr[i][j]);
+                    }else if(p == count){
+                        list.add(arr[i][j]);
+                    }
+                }
+            Collections.sort(list);
+            System.out.println("#" + t + " " + list.get(0) + " " + count);
+        }
+    }
+    static int bfs(int x, int y){
+        int zz = 0;
+        queue = new LinkedList<>();
+        visit = new boolean[n][n];
+        visit[x][y] = true;
+        queue.offer(new Point(x, y, 1));
+        while (!queue.isEmpty()) {
+            Point now = queue.poll();
+            for(int i = 0; i < 4; i++){
+                int nx = now.x + dir[i][0];
+                int ny = now.y + dir[i][1];
+                if(nx < 0 || ny < 0 || nx >= n || ny >= n)
+                    continue;
+                if(visit[nx][ny])
+                    continue;
+                if(arr[now.x][now.y] + 1 == arr[nx][ny]){
+                    queue.offer(new Point(nx, ny, now.sum + 1));
+                    visit[nx][ny] = true;
+                }
+            }
+            zz = Math.max(zz,now.sum);
+        }
+        return zz;
+    }
+}
