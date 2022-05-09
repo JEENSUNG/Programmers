@@ -1,0 +1,34 @@
+package com.core.hello;
+
+import java.awt.*;
+import java.util.*;
+
+class Main{
+    static int n;
+    static int count = 0;
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int test = scan.nextInt();
+        for(int t = 1; t <= test; t++){
+            n = scan.nextInt();
+            int count = 0;
+            int[] ans = new int[201];
+            for(int i = 0; i < n; i++){
+                int x = scan.nextInt() + 1 / 2;
+                int y = scan.nextInt() + 1 / 2
+                if(x < y){
+                    for(int j = x; j <= y; j++){
+                        ans[j]++;
+                    }
+                }else{
+                    for(int j = y; j <= x; j++){
+                        ans[j]++;
+                    }
+                }
+            }
+            Arrays.sort(ans);
+            count = ans[200];
+            System.out.println("#" + t + " " + count);
+        }
+    }
+}
