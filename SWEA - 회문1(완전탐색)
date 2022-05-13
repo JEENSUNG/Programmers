@@ -1,0 +1,51 @@
+package com.core.hello;
+
+import java.util.*;
+class Main{
+    static int n;
+    static char[][] arr;
+    static boolean[][] visit;
+    static int answer;
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        for(int test = 1; test <= 10; test++){
+            n = scan.nextInt();
+            arr = new char[8][8];
+            visit = new boolean[8][8];
+            answer = 0;
+            for(int i = 0; i < 8; i++){
+                String str = scan.next();
+                for(int j = 0; j < 8; j++){
+                    arr[i][j] = str.charAt(j);
+                }
+            }
+            for(int i = 0; i < 8; i++){
+                for(int j = 0; j <= 8 - n; j++){
+                    dfs(i,j);
+                    dfs2(i,j);
+                }
+            }
+            System.out.println("#" + test + " " + answer);
+        }
+    }
+    static void dfs(int x, int y){
+        String t = "";
+        for(int i = 0; i < n; i++)
+            t += arr[x][y + i];
+        String reverse = "";
+        for(int i = t.length() - 1; i >= 0; i--)
+            reverse += t.charAt(i);
+        if(t.equals(reverse))
+            answer++;
+    }
+    static void dfs2(int x, int y){
+        String t = "";
+        for(int i = 0; i < n; i++)
+            t += arr[y + i][x];
+        String reverse = "";
+        for(int i = t.length() - 1; i >= 0; i--)
+            reverse += t.charAt(i);
+        if(t.equals(reverse))
+            answer++;
+    }
+}
