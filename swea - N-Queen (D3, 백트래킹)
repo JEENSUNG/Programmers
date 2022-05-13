@@ -1,0 +1,58 @@
+package com.core.hello;
+
+import java.util.*;
+class Main{
+    static int n;
+    static int[][] arr;
+    static int answer;
+    static int[][] dir = {{-1, 0}, {0, 1}, {0, -1}};
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int a = scan.nextInt();
+        for (int test = 1; test <= a; test++) {
+            n = scan.nextInt();
+            arr = new int[n][n];
+            answer = 0;
+            dfs(0);
+            System.out.println("#" + test + " " + answer);
+        }
+    }
+    static void dfs(int cnt){
+        if(cnt == n){
+            answer++;
+            return;
+        }
+        for(int i = 0; i < n; i++){
+            if(check(cnt, i)){
+                arr[cnt][i] = 1;
+                dfs(cnt + 1);
+                arr[cnt][i] = 0;
+            }
+        }
+    }
+    static boolean check(int x, int y){
+        int[][] d = {{-1, 1}, {-1, -1}};
+        for(int i = 0; i < 2; i++){
+            for(int j = 1; j < n; j++) {
+                int nx = x + (d[i][0] * j);
+                int ny = y + (d[i][1] * j);
+                if (nx < 0 || ny < 0 || nx >= n || ny >= n)
+                    continue;
+                if (arr[nx][ny] == 1){
+                    return false;
+                }
+            }
+        }
+        for(int i = 0; i < 3; i++){
+            for(int j = 1; j < n; j++){
+                int nx = x + (dir[i][0] * j);
+                int ny = y + (dir[i][1] * j);
+                if(nx < 0 || ny < 0 || nx >= n || ny >= n)
+                    continue;
+                if(arr[nx][ny] == 1)
+                    return false;
+            }
+        }
+        return true;
+    }
+}
