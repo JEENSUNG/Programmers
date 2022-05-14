@@ -1,0 +1,48 @@
+package com.core.hello;
+
+import java.util.*;
+class Main{
+    static int n, m;
+    static int[][] arr;
+    static boolean[] visit;
+    static int answer;
+    static int t;
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int test = scan.nextInt();
+        for(int test_case = 1; test_case <= test; test_case++){
+            n = scan.nextInt();
+            m = scan.nextInt();
+            answer = 0;
+            if(m == 0)
+                System.out.println("#" + test_case + " " + 1);
+            else{
+                arr = new int[n + 1][n + 1];
+                visit = new boolean[n + 1];
+                for(int i = 0; i < m; i++){
+                    int x = scan.nextInt();
+                    int y = scan.nextInt();
+                    arr[x][y] = arr[y][x] = 1;
+                }
+                for(int i = 1; i <= n; i++){
+                    visit = new boolean[n + 1];
+                    visit[i] = true;
+                    answer = Math.max(dfs(i, 1), answer);
+                }
+                System.out.println("#" + test_case + " " + answer);
+            }
+        }
+    }
+    static int dfs(int now, int count){
+        if(answer < count)
+            answer = count;
+        for(int i = 1; i <= n; i++){
+            if(!visit[i] && arr[now][i] == 1){
+                visit[i] = true;
+                dfs(i, count + 1);
+                visit[i] = false;
+            }
+        }
+        return answer;
+    }
+}
