@@ -26,23 +26,20 @@ class Main{
                 }
                 for(int i = 1; i <= n; i++){
                     visit = new boolean[n + 1];
-                    visit[i] = true;
-                    answer = Math.max(dfs(i, 1), answer);
+                    dfs(i, 1);
                 }
                 System.out.println("#" + test_case + " " + answer);
             }
         }
     }
-    static int dfs(int now, int count){
-        if(answer < count)
-            answer = count;
+    static void dfs(int now, int count){
+        visit[now] = true;
         for(int i = 1; i <= n; i++){
             if(!visit[i] && arr[now][i] == 1){
-                visit[i] = true;
                 dfs(i, count + 1);
                 visit[i] = false;
             }
         }
-        return answer;
+        answer = Math.max(answer, count);
     }
 }
