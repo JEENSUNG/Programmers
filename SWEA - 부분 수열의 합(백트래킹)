@@ -1,0 +1,37 @@
+import java.util.*;
+class Solution{
+    static int n, k;
+    static int[] arr;
+    static boolean[] visit;
+    static int answer;
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int t = scan.nextInt();
+        for(int test = 1; test <= t; test++) {
+            n = scan.nextInt();
+            k = scan.nextInt();
+            arr = new int[n];
+            visit = new boolean[n];
+            for(int i = 0; i < n; i++)
+                arr[i] = scan.nextInt();
+            dfs(0,0);
+            System.out.println("#" + test + " " + answer);
+        }
+    }
+    static void dfs (int g,int sum){
+        if(sum > k){
+            return;
+        }
+        if(sum == k){
+            answer++;
+            return;
+        }
+        for(int i = g; i < n; i++){
+            if(!visit[i]) {
+                visit[i] = true;
+                dfs(i,sum + arr[i]);
+                visit[i] = false;
+            }
+        }
+    }
+}
