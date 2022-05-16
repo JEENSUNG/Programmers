@@ -1,0 +1,45 @@
+package com.core.hello;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Scanner;
+
+class Main{
+    static Deque<Integer> deque;
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        for(int test_case = 1; test_case <= 10; test_case++){
+            int num = scan.nextInt();
+            deque = new ArrayDeque<>();
+            for(int i = 0; i < 8; i++)
+                deque.offerLast(scan.nextInt());
+            int cnt = 1;
+            while(!deque.isEmpty()){
+                int now = deque.pollFirst();
+                if(check() && now - cnt <= 0){
+                    deque.offerLast(0);
+                    break;
+                }
+                if(now - cnt <= 0){
+                    cnt = 1;
+                }
+                now = now - cnt;
+                deque.offerLast(now);
+                cnt++;
+                if(cnt == 6)
+                    cnt = 1;
+            }
+            System.out.print("#" + num + " ");
+            for(int i = 0; i < 8; i++)
+                System.out.print(deque.pollFirst() + " ");
+            System.out.println();
+        }
+    }
+    static boolean check(){
+        for(Integer integer : deque){
+            if(integer <= 0 || integer >= 10)
+                return false;
+        }
+        return true;
+    }
+}
