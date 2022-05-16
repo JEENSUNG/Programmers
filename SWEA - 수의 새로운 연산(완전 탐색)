@@ -1,0 +1,46 @@
+package com.core.hello;
+import java.util.*;
+class Main{
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int test = scan.nextInt();
+        for(int test_case = 1; test_case <= test; test_case++){
+            int a = scan.nextInt();
+            int b = scan.nextInt();
+            int start = 1;
+            int cnt = 1;
+            int x; int y;
+            int c; int d;
+            while(true){
+                if(a >= start && a < start + cnt){
+                    x = a - start + 1;
+                    y = cnt - x + 1;
+                    break;
+                }
+                start += cnt;
+                cnt++;
+            }
+            start = 1;
+            cnt = 1;
+            while(true){
+                if(b >= start && b < start + cnt){
+                    c = b - start + 1;
+                    d = cnt - c + 1;
+                    break;
+                }
+                start += cnt;
+                cnt++;
+            }
+            int p = x + c;
+            int q = y + d;
+            int gg = p - 1;
+            int number = q + gg;
+            int bb = 1;
+            for(int i = 1; i < number; i++){
+                bb += i;
+            }
+            bb = bb + gg;
+            System.out.println("#" + test_case + " " + bb);
+        }
+    }
+}
