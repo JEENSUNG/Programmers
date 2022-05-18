@@ -1,0 +1,36 @@
+package com.core.hello;
+import java.util.*;
+class Main{
+    static int n, k;
+    static int[] arr;
+    static int[] ans;
+    static boolean[] visit;
+    static int MAX = Integer.MIN_VALUE;
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int test = scan.nextInt();
+        for (int test_case = 1; test_case <= test; test_case++) {
+            n = scan.nextInt();
+            k = scan.nextInt();
+            arr = new int[n];
+            ans = new int[n];
+            for(int i = 0; i < n; i++) {
+                arr[i] = scan.nextInt();
+                ans[i] = scan.nextInt();
+            }
+            MAX = 0;
+            dfs(0,0 , 0);
+            System.out.println("#" + test_case + " " + MAX);
+        }
+    }
+    static void dfs(int count, int kal, int deli){
+        if(kal > k)
+            return;
+        if(count == n){
+            MAX = Math.max(MAX, deli);
+            return;
+        }
+        dfs(count + 1 , kal + ans[count], deli + arr[count]);
+        dfs(count + 1, kal, deli);
+    }
+}
