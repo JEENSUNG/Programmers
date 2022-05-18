@@ -1,0 +1,22 @@
+package com.core.hello;
+import java.util.*;
+class Main{
+    static int sum;
+    static int x, y;
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        for (int test_case = 1; test_case <= 10; test_case++) {
+            int num = scan.nextInt();
+            x = scan.nextInt();
+            y = scan.nextInt();
+            sum = x;
+            System.out.println("#" + num + " " + dfs(1));
+        }
+    }
+    static int dfs(int count){
+        if(count == y){
+            return sum;
+        }
+        return sum * dfs(count + 1);
+    }
+}
