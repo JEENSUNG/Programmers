@@ -1,0 +1,49 @@
+class Solution {
+    public int solution(int[][] board, int[][] skill) {
+        int answer = 0;
+        int index = 0;
+        int[][] arr = new int[board.length + 1][board[0].length + 1];
+        while(index < skill.length){
+            int type = skill[index][0];
+            int r1 = skill[index][1];
+            int c1 = skill[index][2];
+            int r2 = skill[index][3];
+            int c2 = skill[index][4];
+            int now = skill[index][5];
+            if(type == 1){
+                arr[r1][c1] -= now;
+                arr[r1][c2 + 1] += now;
+                arr[r2 + 1][c1] += now;
+                arr[r2 + 1][c2 + 1] -= now;
+            }
+            else{
+                arr[r1][c1] += now;
+                arr[r2 + 1][c1] -= now;
+                arr[r1][c2 + 1] -= now;
+                arr[r2 + 1][c2 + 1] += now;
+            }
+            index++;
+        }
+        for(int i = 0; i < arr.length; i++){
+            int sum = 0;
+            for(int j = 0; j < arr[0].length; j++){
+                sum += arr[i][j];
+                arr[i][j] = sum;
+            }
+        }
+        for(int i = 0; i < arr[0].length - 1; i++){
+            int sum = 0;
+            for(int j = 0; j < arr.length - 1; j++){
+                sum += arr[j][i];
+                arr[j][i] = sum;
+            }
+        }
+        for(int i = 0; i < board.length; i++){
+            for(int j = 0; j < board[0].length; j++){
+                if(arr[i][j] + board[i][j] > 0)
+                    answer++;
+            }
+        }
+        return answer;
+    }
+}
