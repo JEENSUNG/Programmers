@@ -1,0 +1,67 @@
+class Solution {
+    public boolean solution(int[][] key, int[][] lock) {
+        boolean answer = false;
+        int m = key.length;
+        int n = lock.length;
+
+        int size = n + m * 2 - 2;
+        int[][] arr = new int[size][size];
+
+        for(int i = m - 1; i < m + n - 1; i++){
+            for(int j = m - 1; j < m + n - 1; j++){
+                arr[i][j] = lock[i - (m - 1)][j - (m - 1)];
+            }
+        }
+
+        for(int i = 0; i < 4; i++){
+            if(check(arr, key, n))
+                return true;
+            rotate(key);
+        }
+        return answer;
+    }
+    static boolean check(int[][] arr, int[][] key, int n){
+        int keyLength = key.length;
+        int arrLength = arr.length;
+        for(int i = 0; i < arrLength - keyLength + 1; i++){
+            for(int j = 0; j < arrLength - keyLength + 1; j++){
+
+                for(int k = 0; k < keyLength; k++){
+                    for(int l = 0; l < keyLength; l++){
+                        arr[i + k][j + l] += key[k][l];
+                    }
+                }
+                boolean flag = true;
+                for(int k = keyLength - 1; k < keyLength + n - 1; k++){
+                    for(int l = keyLength - 1; l < keyLength + n - 1; l++){
+                        if(arr[k][l] != 1){
+                            flag = false;
+                            break;
+                        }
+                    }
+                    if(!flag)
+                        break;
+                }
+                if(flag)
+                    return true;
+                for(int k = 0; k < keyLength; k++){
+                    for(int l = 0; l < keyLength; l++){
+                        arr[i + k][j + l] -= key[k][l];
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    static void rotate(int[][] key){
+        int length = key.length;
+        int[][] temp = new int[length][length];
+        for(int i = 0; i < length; i++){
+            for(int j = 0; j < length; j++){
+                temp[i][j] = key[length - j - 1][i];
+            }
+        }
+        for(int i = 0; i < length; i++)
+            System.arraycopy(temp[i], 0, key[i], 0, length);
+    }
+}
